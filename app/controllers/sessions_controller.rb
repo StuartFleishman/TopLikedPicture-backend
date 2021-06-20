@@ -11,5 +11,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  def logout
+    reset_session
+    render json: { status: 200, user: {}, logged_in: false}
+  end 
+
   
 end
