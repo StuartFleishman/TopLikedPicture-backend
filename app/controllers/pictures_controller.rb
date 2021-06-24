@@ -15,10 +15,20 @@ class PicturesController < ApplicationController
     end 
   end
 
+  def update 
+    picture = Picture.find(params[:id])
+    picture.update(picture_params)
+    if picture.save 
+      render json: picture.to_json(except: [:created_at, :updated_at])
+    else 
+        render json: {error: "oops"}
+    end 
+  end
+
 
   private 
   def picture_params
-    params.require(:picture).permit(:title, :image_url, :category_id, :user_id)
+    params.require(:picture).permit(:title, :image_url, :category_id, :user_id, :likes)
   end
 
 end
