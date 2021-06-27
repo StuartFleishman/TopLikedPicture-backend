@@ -17,7 +17,7 @@ class PicturesController < ApplicationController
 
   def update 
     picture = Picture.find(params[:id])
-    picture.update(picture_params)
+    picture.update(likes: params["likes"])
     if picture.save 
       render json: picture.to_json(except: [:created_at, :updated_at])
     else 

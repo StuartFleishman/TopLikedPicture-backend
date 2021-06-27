@@ -1,10 +1,15 @@
 
 class SessionsController < ApplicationController
+ 
 
+  def index 
+    session["init"] = true
+  end 
+ 
   def create
     user = User.find_by(email: params[:user][:email])
     if user && user.authenticate(params[:user][:password])
-      session[:id] = user.id
+      session[:user_id] = user.id
       render json: { status: 201, user: user, logged_in: true}
     else 
       render json: { status: 401, message: "User not found or password incorrect"}
@@ -12,6 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def logged_in?
+  
     if logged_in
       render json: { status: 201, user: current_user, logged_in: true}
     else 
@@ -23,6 +29,8 @@ class SessionsController < ApplicationController
     reset_session
     render json: { status: 200, user: {}, logged_in: false}
   end 
+
+  
 
   
 end
