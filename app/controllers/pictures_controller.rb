@@ -11,7 +11,7 @@ class PicturesController < ApplicationController
     if picture.save
         render json: picture.to_json(except: [:created_at, :updated_at])
     else 
-        render json: {error: "oops"}
+        render json: {message: picture.errors.full_messages}
     end 
   end
 
@@ -24,6 +24,17 @@ class PicturesController < ApplicationController
         render json: {error: "oops"}
     end 
   end
+
+  def destroy 
+  
+    picture = Picture.find_by(id: params[:id].to_i)
+    
+    if picture.destroy
+      render json: {message: "successful"}
+    else 
+      render json: {message: 'error'}
+    end 
+  end 
 
 
   private 

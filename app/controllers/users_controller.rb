@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       session[:id] = user.id
       render json: { status: 201, user: user, logged_in: true}
     else 
-      render json: { status: 500, message: "There was an error in creating an account"}
+      render json: { status: 500, message: user.errors.full_messages}
     end
   end
 

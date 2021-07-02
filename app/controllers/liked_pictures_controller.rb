@@ -9,7 +9,7 @@ class LikedPicturesController < ApplicationController
   def create 
     liked = LikedPicture.new(liked_picture_params)
     if liked.save 
-      render json: {status: 201, liked_pictures: liked}
+      render json: {status: 201}
     else 
       render json: { status: 500, message: "There was an error in creating an account"}
     end
